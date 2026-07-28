@@ -1,0 +1,98 @@
+/* ==========================================================================
+   TIER 3: HEADLINE TICKER BAR (Hitam Charcoal `#121212` with Red Badge)
+   ========================================================================== */
+.headline-ticker-bar {
+    background-color: #121212 !important;
+    border-bottom: 1px solid #222 !important;
+    height: 38px !important;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding: 0 !important;
+    transition: background-color var(--duration-standard) var(--ease-standard);
+}
+
+.headline-ticker-bar .trending-container {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    gap: 0 !important;
+}
+
+/* Headline Solid Red Badge */
+.headline-badge {
+    background-color: var(--color-accent) !important;
+    color: #FFFFFF !important;
+    font-weight: 900 !important;
+    font-family: var(--font-sans);
+    font-size: 12px !important;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    height: 100%;
+    padding: 0 20px !important;
+    display: inline-flex !important;
+    align-items: center;
+    border-right: none !important;
+    flex-shrink: 0;
+}
+
+/* Ticker Content and Horizontal Scroll Track */
+.ticker-content-wrap {
+    flex-grow: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding-left: 20px;
+}
+
+.ticker-track {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    width: max-content; /* Memaksa track melebar sejajar isi teks tanpa batas */
+    flex-shrink: 0; /* Mengunci agar container flex tidak menciut di layar HP */
+    white-space: nowrap; /* Mencegah pematahan teks ke baris baru */
+    animation: marquee-scroll 35s linear infinite;
+}
+
+.ticker-track:hover {
+    animation-play-state: paused; /* Berhenti sejenak saat kursor hover */
+}
+
+.ticker-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #CCCCCC;
+    font-size: 12px;
+}
+
+.ticker-bullet {
+    color: var(--color-accent);
+    font-size: 14px;
+}
+
+.ticker-item a {
+    color: #EEEEEE;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color var(--duration-fast) var(--ease-standard);
+}
+
+.ticker-item a:hover {
+    color: var(--color-accent);
+}
+
+/* CSS Marquee Keyframes - Mulus Bergerak Setengah Lebar Total Duplikasi */
+@keyframes marquee-scroll {
+    0% {
+        transform: translate3d(0, 0, 0);
+    }
+    100% {
+        transform: translate3d(-50%, 0, 0);
+    }
+}

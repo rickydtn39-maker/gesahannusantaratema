@@ -1,0 +1,21 @@
+/*
+Theme Name: Gentara News
+Theme URI: https://gentara.news/gentara-news-pro
+Author: Gentara Development Team
+Author URI: https://gentara.news
+Description: Tema portal berita premium, super cepat, modern, aksesibel (WCAG 2.2 AA), dan dioptimalkan sepenuhnya untuk monetisasi dan Core Web Vitals dengan arsitektur enterprise skala besar (v2.0.0).
+Version: 2.0.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: gentara-news
+Domain Path: /languages
+Tags: news, blog, custom-menu, featured-images, flexible-header, light-theme, dark-theme, translation-ready, accessibility-ready
+
+This theme, like WordPress, is licensed under the GPL.
+*/
+
+/* 
+  Gentara News Core Stylesheet
+  Catatan: Seluruh file CSS Modular di dalam assets/css/ kini dimuat secara paralel 
+  melalui AssetServiceProvider untuk performa rendering halaman dan nilai FCP/LCP maksimal.
+*/

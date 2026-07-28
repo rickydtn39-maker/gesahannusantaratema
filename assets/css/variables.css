@@ -1,0 +1,82 @@
+:root {
+    /* Color Palette - CNN Indonesia Editorial Style */
+    --color-primary: #000000;
+    --color-primary-rgb: 0, 0, 0;
+    --color-accent: #CC0000;
+    --color-accent-hover: #990000;
+    --color-text-main: #111111;
+    --color-text-muted: #666666;
+    --color-bg-body: #FFFFFF;
+    --color-bg-surface: #F6F6F6;
+    --color-border: #E5E5E5;
+    --color-focus-outline: #CC0000;
+    --color-overlay: rgba(0, 0, 0, 0.6);
+
+    /* Card Styling CSS Variables (Sharp Corners Default) */
+    --card-border-radius: 0px;
+    --card-bg: none;
+    --card-border: none;
+    --card-padding: 0px;
+    --card-shadow-hover: none;
+    --card-lift-hover: none;
+
+    /* Responsive Breakpoint Tokens */
+    --breakpoint-mobile: 767px;
+    --breakpoint-tablet: 991px;
+    --breakpoint-desktop: 1024px;
+
+    /* Dimensional Layout Tokens - Lebar Detik/BeritaSatu 1200px */
+    --header-height: 48px;
+    --header-height-mobile: 52px;
+    --drawer-width: 280px;
+    --container-width: 1200px;
+    --container-padding: 15px;
+
+    /* Typographic System */
+    --font-sans: "Helvetica Neue", Helvetica, Arial, "Inter", sans-serif;
+    --font-serif: "Georgia", Times, serif;
+    --font-condensed: "Helvetica Neue Condensed", "Arial Narrow", "Inter", sans-serif;
+
+    --font-size-xs: 12px;
+    --font-size-sm: 14px;
+    --font-size-base: 16px;
+    --font-size-md: 20px;
+    --font-size-lg: 28px;
+    --font-size-xl: 36px;
+
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-bold: 700;
+    --font-weight-black: 900;
+    --line-height-tight: 1.15;
+    --line-height-normal: 1.5;
+
+    /* Spacing & Borders */
+    --space-xs: 8px;
+    --space-sm: 16px;
+    --space-md: 24px;
+    --space-lg: 32px;
+    --space-xl: 48px;
+    --border-radius-sm: 0px !important;
+    --border-radius-md: 0px !important;
+
+    /* Motion & Transitions */
+    --duration-ultra-fast: 100ms;
+    --duration-fast: 150ms;
+    --duration-standard: 200ms;
+    --ease-standard: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-theme="dark"] {
+    --color-primary: #FFFFFF;
+    --color-primary-rgb: 255, 255, 255;
+    --color-accent: #FF3333;
+    --color-accent-hover: #CC0000;
+    --color-text-main: #E5E5E5;
+    --color-text-muted: #999999;
+    --color-bg-body: #111111;
+    --color-bg-surface: #222222;
+    --color-border: #333333;
+    --color-focus-outline: #FF3333;
+}
