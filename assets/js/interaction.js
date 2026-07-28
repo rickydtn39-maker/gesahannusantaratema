@@ -65,7 +65,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const closeDropdownAdBtn = document.querySelector('#top-dropdown-ad-close');
 
     if (topDropdownAd) {
-        // Meluncur turun otomatis setelah 3 detik (3000ms)
         setTimeout(function () {
             topDropdownAd.classList.add('active');
         }, 3000);
@@ -75,5 +74,38 @@ document.addEventListener('DOMContentLoaded', function () {
                 topDropdownAd.classList.remove('active');
             });
         }
+    }
+
+    // 5. PROGRESS BAR MEMBACA (Reading Progress Bar Logic - High Compatibility)
+    const progressBar = document.querySelector('#reading-progress-bar');
+    if (progressBar) {
+        window.addEventListener('scroll', function () {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+            const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            if (docHeight > 0) {
+                const scrollPercent = (scrollTop / docHeight) * 100;
+                progressBar.style.width = scrollPercent + '%';
+            }
+        });
+    }
+
+    // 6. SINGLE ARTICLE INTERACTIVE FOOTER ACTION TOOLBAR
+    const bookmarkBtn = document.querySelector('#utility-bookmark');
+    if (bookmarkBtn) {
+        bookmarkBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            alert('Artikel berhasil disimpan ke daftar bacaan Anda (Simulasi Bookmark).');
+        });
+    }
+
+    const reportErrorBtn = document.querySelector('#utility-report-error');
+    if (reportErrorBtn) {
+        reportErrorBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            const reportReason = prompt('Silakan tulis kesalahan penulisan atau ejaan pada artikel ini:');
+            if (reportReason) {
+                alert('Terima kasih atas laporan Anda. Tim Redaksi kami akan segera meninjau kesalahan tersebut.');
+            }
+        });
     }
 });

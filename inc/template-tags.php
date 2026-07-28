@@ -1,6 +1,7 @@
 <?php
 /**
  * Kumpulan tag template visual berstandar aksesibilitas tinggi (GDS Volume 5)
+ * Diperkaya dengan utilitas pencatatan view artikel, estimasi baca, dan metadata gambar.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -73,7 +74,6 @@ endif;
 
 /**
  * UTILITY: Mengonversi waktu postingan menjadi format waktu relatif Bahasa Indonesia (Time Ago)
- * Sebagai alias pembantu pendukung jika ada template eksternal lain yang memanggilnya.
  */
 if ( ! function_exists( 'ges_posted_on_relative' ) ) :
     function ges_posted_on_relative() {
@@ -117,14 +117,13 @@ if ( ! function_exists( 'gesahan_post_thumbnail' ) ) :
 endif;
 
 /**
- * AUTOMATIC EDITORIAL FEATURE: Injeksi Kotak Pilihan Redaksi di Tengah Artikel secara Aman (Query-Safe & Customizable)
+ * AUTOMATIC EDITORIAL FEATURE: Injeksi Kotak Pilihan Redaksi di Tengah Artikel secara Aman
  */
 function gesahan_inject_pilihan_redaksi( $content ) {
     if ( ! is_single() || ! is_main_query() ) {
         return $content;
     }
 
-    // Cek apakah fitur ini diaktifkan di Customizer
     if ( ! get_theme_mod( 'ges_single_show_pilihan_redaksi', true ) ) {
         return $content;
     }
@@ -146,7 +145,6 @@ function gesahan_inject_pilihan_redaksi( $content ) {
         return $content;
     }
 
-    // Ambil data langsung dari data mentah posts array tanpa merusak pointer loop $post global
     $related_post = $related->posts[0];
     
     $callout_html = '<div class="pilihan-redaksi-callout" aria-label="' . esc_attr__( 'Pilihan Redaksi', 'gesahan-news-pro' ) . '">';
@@ -154,7 +152,6 @@ function gesahan_inject_pilihan_redaksi( $content ) {
     $callout_html .= '<h4 class="pilihan-redaksi-title"><a href="' . esc_url( get_permalink( $related_post->ID ) ) . '">' . esc_html( get_the_title( $related_post->ID ) ) . '</a></h4>';
     $callout_html .= '</div>';
 
-    // Injeksi kotak tepat setelah paragraf kedua
     $paragraphs = explode( '</p>', $content );
     if ( count( $paragraphs ) > 2 ) {
         $paragraphs[1] .= '</p>' . $callout_html;
@@ -168,19 +165,17 @@ function gesahan_inject_pilihan_redaksi( $content ) {
 add_filter( 'the_content', 'gesahan_inject_pilihan_redaksi', 10 );
 
 /**
- * AUTOMATIC EDITORIAL FEATURE: Tambahkan Kredit/Inisial Editor di Akhir Artikel (Customizable)
+ * AUTOMATIC EDITORIAL FEATURE: Tambahkan Kredit/Inisial Editor di Akhir Artikel
  */
 function gesahan_inject_author_initials( $content ) {
     if ( ! is_single() || ! is_main_query() ) {
         return $content;
     }
 
-    // Cek apakah fitur ini diaktifkan di Customizer
     if ( ! get_theme_mod( 'ges_single_show_author_initials', true ) ) {
         return $content;
     }
 
-    // Membuat inisial random berdasar inisial penulis, misal: (sry/nva)
     $author_name = get_the_author_meta('display_name');
     $words = explode(' ', $author_name);
     $initials = '';
@@ -198,3 +193,39 @@ function gesahan_inject_author_initials( $content ) {
     return $content;
 }
 add_filter( 'the_content', 'gesahan_inject_author_initials', 15 );
+
+/**
+ * UTILITY: Pelacak Jumlah Pembaca (Post Views Tracker)
+ */
+function ges_set_post_views( $post_id ) {
+    $count_key = '_ges_post_views_count';
+    $count = get_post_meta( $post_id, $count_key, true );
+    if ( '' === $count ) {
+        $count = 0;
+        delete_post_meta( $post_id, $count_key );
+        add_post_meta( $post_id, $count_key, '0' );
+    } else {
+        $count++;
+        update_post_meta( $post_id, $count_key, $count );
+    }
+}
+
+function ges_get_post_views( $post_id ) {
+    $count_key = '_ges_post_views_count';
+    $count = get_post_meta( $post_id, $count_key, true );
+    if ( '' === $count ) {
+        delete_post_meta( $post_id, $count_key );
+        add_post_meta( $post_id, $count_key, '0' );
+        return '0';
+    }
+    return number_format_i18n( $count );
+}
+
+/**
+ * UTILITY: Estimasi Waktu Membaca Artikel
+ */
+function ges_calculate_reading_time( $content ) {
+    $word_count = str_word_count( strip_tags( $content ) );
+    $reading_time = ceil( $word_count / 200 ); // Estimasi 200 kata per menit
+    return $reading_time > 0 ? $reading_time : 1;
+}
